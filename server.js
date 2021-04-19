@@ -9,6 +9,7 @@ const restram = require('./config/remm.js');
 // 登录
 exports.login = (req, res) => {
     console.log('------------登录接口已启动....--------');
+    // 完善登录判断是否存在token
     const info = {
         name: req.body.name,
         password: req.body.password
