@@ -2,7 +2,7 @@
 /* 
     统一返回格式
 */
-function ss (data, message, code) {
+module.exports = function (data, message, code) {
     res.send({
         data: data,
         meta : {

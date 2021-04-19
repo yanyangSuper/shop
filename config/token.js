@@ -12,5 +12,5 @@ exports.generate = function (data) {
 },
 exports.analysis = function (token) {
     const rsl = jwt.verify(token, secret.secret);
-    return res;
+    return rsl;
 }

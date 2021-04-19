@@ -36,7 +36,10 @@ const { charsets } = require('mime');
 const express = require('express');
 const { Router } = require('express');
 const bodyParser = require('body-parser');
+const os = require('os');
 const router = require('./router.js');
+const network = os.networkInterfaces();
+const ip = network.WLAN[1].address;
 const app = express();
 const port = 8080;
 
@@ -48,10 +51,11 @@ app.use(bodyParser.json());
 
 // 引用静态加载资源
 app.use(express.static('static'));
+app.use(express.static('uploads'));
 
 // 调用路由
 app.use(router);
 
-app.listen(port, '192.168.124.32', () => {
+app.listen(port, ip, () => {
     console.log('服务已启动...');
 })
