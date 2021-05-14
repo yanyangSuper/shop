@@ -75,6 +75,13 @@ exports.getFoods = (req, res) => {
     res.send('产品列表');
 }
 
+/**
+ * 获取某类产品
+ */
+exports.getCateFoods = (req, res) => {
+    console.log(req.body);
+}
+
 // 获取某个产品
 exports.getOneFoods = (req, res) => {
     const id = req.body.proid;
@@ -84,6 +91,11 @@ exports.getOneFoods = (req, res) => {
         console.log(result);
     });
     res.send('商品详情');
+}
+
+// 新品列表
+exports.getnewFoods = (req, res) => {
+    const info = req.body;
 }
 
 // 上传图片
