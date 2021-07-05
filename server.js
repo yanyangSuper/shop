@@ -100,8 +100,78 @@ exports.getnewFoods = (req, res) => {
 
 // 上传图片
 exports.pullPhoto = (req, res) => {
-    res.send('他来了他来了');
+    // res.send('他来了他来了');
     console.log(req.file);
     const url = '192.168.124.32:8080' + '/' + req.file.filename;
     console.log(url);
+    res.send({
+        meta: 200,
+        data: url
+    })
+    // 此处应放到数据库储存图片url
+}
+// 评论回复功能
+exports.getComments = (req, res) => {
+    console.log("++++++++++++++++++++++获取评论接口++++++++++++++++++++++");
+    const sql = 'select * from topic';
+    const data = {};
+    let topics = [];
+    db.base(sql, data, result => {
+        // console.log(result);
+        topics = result;
+        let topicArr = [];
+        topics.forEach((item, index) => {
+            const sql = 'select * from comments where topic_id=?';
+            const id = item.topic_id;
+            db.base(sql, id, result => {
+                // console.log(result);
+                // 笨比了对象引用一致
+                // console.log(index);
+                topicArr[index] = {
+                    topic: item.content,
+                    critics: result
+                }
+                // console.log(topicArr);
+                // const topicObj = {
+                //     topic: item.content,
+                //     critics: result
+                // }
+                // topicArr.push(topicObj);
+            })
+        });
+        // res.send(topicArr);
+    });
+    // 循环查找每一个topic和她的评论
+    // console.log(222);
+    // topics.forEach(item => {
+    //     console.log(item);
+    //     console.log(4);
+    //     const sql = 'select * from comments where topic_id=?';
+    //     const id = item.topic_id;
+    //     db.base(sql, id, result => {
+    //         console.log(1);
+    //         console.log(result);
+    //     })
+    // })
+    // res.send("sss");
+    /* 
+        topic: {
+            content: ''
+            comment: ''
+        }
+        此处用右关联查寻出一个说说下关联n个评论及回复---nice
+        问题来了我要查两次数据库
+    */
+//    const sql = 'select topic.content, comments.* from topic right join comments on topic.topic_id = comments.topic_id';
+//    db.base(sql, data, result => {
+//        console.log(result);
+//        res.send(result);
+//    })
+}
+
+/* 
+    发送评论
+*/
+exports.sendComments = (req, res) => {
+    console.log("发送评论接口")
 }

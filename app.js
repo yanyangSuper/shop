@@ -1,7 +1,6 @@
 /* 
     项目入口文件
 */
-console.log(1);
 const fs = require('fs');
 const path = require('path');
 const http = require('http');

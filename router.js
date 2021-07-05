@@ -45,4 +45,7 @@ router.post('/register',server.register);
 
 // 获取商品列表
 router.get('/foods', server.getFoods);
+
+// 获取说说
+router.get('/topic', server.getComments);
 module.exports = router;
