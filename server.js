@@ -117,7 +117,7 @@ exports.getComments = (req, res) => {
     const data = {};
     let topics = [];
     db.base(sql, data, result => {
-        // console.log(result);
+        console.log(result);
         topics = result;
         let topicArr = [];
         topics.forEach((item, index) => {
@@ -131,29 +131,16 @@ exports.getComments = (req, res) => {
                     topic: item.content,
                     critics: result
                 }
-                // console.log(topicArr);
-                // const topicObj = {
-                //     topic: item.content,
-                //     critics: result
-                // }
-                // topicArr.push(topicObj);
-            })
+            });
         });
-        // res.send(topicArr);
+        // 此处主要js的时间队列，单线程机制导致
+        // 此处使用异步处理，不然无法等待for循环中所有异步内容执行完
+        // 思量再三可能await比较合适，定时器无法确保时间，！！！
+        setTimeout(() => {
+            console.log(topicArr);
+            res.send(topicArr);
+        }, 1000);
     });
-    // 循环查找每一个topic和她的评论
-    // console.log(222);
-    // topics.forEach(item => {
-    //     console.log(item);
-    //     console.log(4);
-    //     const sql = 'select * from comments where topic_id=?';
-    //     const id = item.topic_id;
-    //     db.base(sql, id, result => {
-    //         console.log(1);
-    //         console.log(result);
-    //     })
-    // })
-    // res.send("sss");
     /* 
         topic: {
             content: ''
@@ -161,6 +148,7 @@ exports.getComments = (req, res) => {
         }
         此处用右关联查寻出一个说说下关联n个评论及回复---nice
         问题来了我要查两次数据库
+        // 问题在于无法得到对应结构的数据
     */
 //    const sql = 'select topic.content, comments.* from topic right join comments on topic.topic_id = comments.topic_id';
 //    db.base(sql, data, result => {
