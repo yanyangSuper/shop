@@ -1,3 +1,11 @@
+/*
+ * @Author: yangyang 1710001012@qq.com
+ * @Date: 2023-07-26 15:05:15
+ * @LastEditors: yangyang 1710001012@qq.com
+ * @LastEditTime: 2025-06-19 11:15:53
+ * @FilePath: /shop/app.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /* 
     项目入口文件
 */
@@ -33,12 +41,12 @@ const { charsets } = require('mime');
 // node.js静态资源自己去读-使用fs模块
 
 const express = require('express');
-const { Router } = require('express');
 const bodyParser = require('body-parser');
 const os = require('os');
 const router = require('./router.js');
 const network = os.networkInterfaces();
-const ip = network.WLAN[1].address;
+// const ip = network.WLAN[1].address;
+const ip = '192.168.10.100'
 const app = express();
 const port = 8080;
 

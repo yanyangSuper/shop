@@ -102,7 +102,7 @@ exports.getnewFoods = (req, res) => {
 exports.pullPhoto = (req, res) => {
     // res.send('他来了他来了');
     console.log(req.file);
-    const url = '192.168.124.32:8080' + '/' + req.file.filename;
+    const url = '192.168.10.100:8080' + '/' + req.file.filename;
     console.log(url);
     res.send({
         meta: 200,
